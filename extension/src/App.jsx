@@ -138,22 +138,24 @@ function ResultsView({ data }) {
       <p style={{ color: "#4b7a5a", fontSize: 14 }}>No results yet. Analyze an article first.</p>
     </div>
   )
-
-  const scores = [
+const scores = [
     {
       label: "Credibility", icon: "🛡️",
       score: data.credibility_score, label2: data.credibility_label,
-      colorFrom: "#2aaefa", colorTo: "#16a34a"
+      colorFrom: "#2aaefa", colorTo: "#16a34a",
+      threshold: 60, thresholdLabel: "Above 60 is considered credible", higherIsBetter: true
     },
     {
       label: "Manipulation", icon: "⚠️",
       score: data.manipulation_score, label2: data.manipulation_label,
-      colorFrom: "#22c55e", colorTo: "#f97316"
+      colorFrom: "#22c55e", colorTo: "#f97316",
+      threshold: 40, thresholdLabel: "Below 40 is considered safe", higherIsBetter: false
     },
     {
       label: "Rhetoric", icon: "🎭",
       score: data.rhetoric?.rhetoric_score ?? 0, label2: data.rhetoric?.rhetoric_label ?? "N/A",
-      colorFrom: "#15803d", colorTo: "#22c55e"
+      colorFrom: "#15803d", colorTo: "#22c55e",
+      threshold: 40, thresholdLabel: "Below 40 is considered clean", higherIsBetter: false
     }
   ]
 
@@ -174,18 +176,24 @@ function ResultsView({ data }) {
         <BiasSlider score={data.bias_score} />
       </Card>
 
-      {scores.map(s => (
-        <Card key={s.label}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-            <span style={{ fontSize: 13, fontWeight: 600 }}>{s.icon} {s.label}</span>
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <span style={{ fontSize: 12, color: "#4b7a5a" }}>{s.label2}</span>
-              <span style={{ fontSize: 13, fontWeight: 700, color: "#ecfdf5" }}>{s.score}</span>
-            </div>
-          </div>
-          <ScoreBar score={s.score} colorFrom={s.colorFrom} colorTo={s.colorTo} />
-        </Card>
-      ))}
+  {scores.map(s => {
+  const safe = s.higherIsBetter ? s.score >= s.threshold : s.score < s.threshold
+  return (
+    <Card key={s.label}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+        <span style={{ fontSize: 13, fontWeight: 600 }}>{s.icon} {s.label}</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <span style={{ fontSize: 12, color: "#4b7a5a" }}>{s.label2}</span>
+          <span style={{ fontSize: 13, fontWeight: 700, color: "#ecfdf5" }}>{s.score}</span>
+        </div>
+      </div>
+      <ScoreBar score={s.score} colorFrom={s.colorFrom} colorTo={s.colorTo} />
+      <p style={{ fontSize: 11, marginTop: 7, color: safe ? "#4ade80" : "#f87171" }}>
+        {safe ? "✓" : "✗"} {s.thresholdLabel}
+      </p>
+    </Card>
+  )
+})}
 
       {data.rhetoric?.devices_found?.length > 0 && (
         <Card>
