@@ -82,7 +82,7 @@ function AnalyzeView({ onResults }) {
       const res = await fetch(`${API_URL}/analyze`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: input.trim(), is_url: isUrl })
+        body: JSON.stringify({ content: input.trim(), is_url: false })
       })
       const data = await res.json()
       if (data.error) { setError(data.error); setLoading(false); return }
@@ -96,22 +96,7 @@ function AnalyzeView({ onResults }) {
   return (
     <div style={{ padding: "0 16px 16px", display: "flex", flexDirection: "column", gap: 12 }}>
       <Card>
-        <p style={{ fontSize: 11, color: "#6dd5fa", letterSpacing: "0.3em", textTransform: "uppercase", marginBottom: 8 }}>// INPUT MODE</p>
-        <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
-          {["Text", "URL"].map((mode) => {
-            const active = (mode === "URL") === isUrl
-            return (
-              <button key={mode} onClick={() => setIsUrl(mode === "URL")} style={{
-                flex: 1, padding: "7px 0", borderRadius: 8, fontSize: 13, fontWeight: 500,
-                border: active ? "1px solid rgba(34,197,94,0.5)" : "1px solid rgba(255,255,255,0.07)",
-                background: active ? "rgba(34,197,94,0.15)" : "rgba(255,255,255,0.03)",
-                color: active ? "#4ade80" : "#4b7a5a", cursor: "pointer", transition: "all 0.2s"
-              }}>
-                {mode}
-              </button>
-            )
-          })}
-        </div>
+       
         <textarea
           value={input}
           onChange={e => setInput(e.target.value)}
