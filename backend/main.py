@@ -161,8 +161,14 @@ For rhetoric devices_found, identify any of these if present: Fear-mongering, St
         except RuntimeError as e:
             return {"error": str(e)}
         try:
-            return json.loads(response_text)
-        except json.JSONDecodeError:
+        # Strip markdown code blocks if Claude added them
+        if response_text.startswith("```"):
+            response_text = response_text.split("```")[1]
+            if response_text.startswith("json"):
+                response_text = response_text[4:]
+            response_text = response_text.strip()
+        return json.loads(response_text)
+    except json.JSONDecodeError:
             return {"error": "Analysis failed: could not parse response. Please try again."}
 
 @app.get("/")
