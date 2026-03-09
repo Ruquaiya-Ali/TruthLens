@@ -29,7 +29,22 @@ def fetch_article_text(url: str) -> str:
         article = Article(url)
         article.download()
         article.parse()
-        return article.text
+        if article.text and len(article.text) > 100:
+            return article.text
+    except:
+        pass
+
+    try:
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        }
+        response = requests.get(url, headers=headers, timeout=10)
+        from bs4 import BeautifulSoup
+        soup = BeautifulSoup(response.text, "html.parser")
+        for tag in soup(["script", "style", "nav", "footer", "header", "aside"]):
+            tag.decompose()
+        text = soup.get_text(separator=" ", strip=True)
+        return text[:5000]
     except:
         return ""
 

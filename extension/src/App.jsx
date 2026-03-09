@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const API_URL = "http://127.0.0.1:8000"
+const API_URL = "https://truthlens-kr1s.onrender.com"
 
 const orbs = (
   <div style={{ position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0, overflow: "hidden" }}>
