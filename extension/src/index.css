@@ -5,17 +5,15 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 :root {
-   --bg: #020a04;
-  --purple: #22c55e;
-  --pink: #4ade80;
+  --bg: #000000;
+  --purple: #16a34a;
+  --pink: #22c55e;
   --blue: #2aaefa;
   --text: #ecfdf5;
   --muted: #4b7a5a;
-  --card: #040f06;
+  --card: #0f0f0f;
 }
-
 body {
   background: var(--bg);
   color: var(--text);
