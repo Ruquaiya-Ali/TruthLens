@@ -156,11 +156,11 @@ For rhetoric devices_found, identify any of these if present: Fear-mongering, St
     except json.JSONDecodeError:
         # Retry once with a stricter reminder
         retry_prompt = prompt + "\nIMPORTANT: Your previous response was not valid JSON. Return ONLY the raw JSON object, nothing else."
-        try:
+    try:
             response_text = await call_claude(retry_prompt)
-        except RuntimeError as e:
+    except RuntimeError as e:
             return {"error": str(e)}
-        try:
+    try:
         # Strip markdown code blocks if Claude added them
         if response_text.startswith("```"):
             response_text = response_text.split("```")[1]
