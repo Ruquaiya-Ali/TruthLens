@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "TruthLens",
+  "version": "1.0.0",
+  "description": "Analyze news articles for bias, credibility, and manipulation.",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "permissions": ["activeTab"],
+  "host_permissions": ["<all_urls>"]
+}
