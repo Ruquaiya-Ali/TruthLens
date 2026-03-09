@@ -338,6 +338,18 @@ export default function App() {
           )
         })}
       </div>
+
+      {/* Footer */}
+<div style={{
+  position: "relative", zIndex: 10, textAlign: "center",
+  padding: "6px 0", borderTop: "1px solid rgba(255,255,255,0.04)",
+  background: "rgba(2,10,4,0.8)"
+}}>
+  <p style={{ fontSize: 10, color: "#4b7a5a", letterSpacing: "0.08em" }}>
+    © 2026 Ruquaiya Ali. All rights reserved.
+  </p>
+</div>
+
     </div>
   )
 }
