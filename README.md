@@ -128,4 +128,4 @@ Then update `API_URL` in `extension/src/App.jsx` to your Render URL and rebuild.
 
 ---
 
-Built by [Ruquaiya](https://github.com/YOURUSERNAME) — BTech Automation Engineering Technology @ McMaster University
+Built by [Ruquaiya](https://github.com/ruquaiya-ali) — BTech Automation Engineering Technology @ McMaster University
